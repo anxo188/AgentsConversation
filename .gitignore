@@ -1,0 +1,14 @@
+# Compiled source
+/bin
+
+# Temporary files
+*.asl~
+*.mas2j~
+
+# Unknown files
+.stop___MAS
+
+#Agents not used in this branch
+clara.asl
+jose.asl
+pepe.asl

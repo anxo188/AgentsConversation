@@ -1,0 +1,40 @@
+/*
+
+    p1Recuperacion
+
+    ---------------------------
+
+
+
+    Jason Project File
+
+
+
+    This file defines the initial state of the MAS
+
+
+
+    Jason 
+
+    mayo 13, 2019 - 21:53:48
+
+*/
+
+
+
+MAS p1Recuperacion {
+
+
+
+    infrastructure: Centralised
+
+
+
+    agents: 
+		jose;
+		clara;
+		pepe;
+		blanca;
+}
+
+git 
