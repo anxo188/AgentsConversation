@@ -32,9 +32,9 @@ MAS p1Recuperacion {
 
     agents: 
 		jose;
-		clara;
-		pepe;
-		blanca;
+		//clara;
+		//pepe;
+		//blanca;
 }
 
 git 
