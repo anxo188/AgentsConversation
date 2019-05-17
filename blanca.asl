@@ -1,22 +1,17 @@
 // Agent blanca in project P1Recuperacion.mas2j
 
 
-frase("Bueno y a donde os apetece ir hoy"):- estado(conversacion).
-frase("Hace un día estupendo"):- estado(conversacion).
-frase("Hoy el parque temático está abierto"):- estado(conversacion).
-frase("Hola Pepe"):- estado(conversacion).
+introduccion("Menudo sol hace hoy").
+introduccion(jose,"Hace un dia estupendo","Bueno y a donde os apetece ir hoy").
+introduccion(clara,"Yo quiero un helado","Quizas luego clara").
+introduccion(clara,"A algun sitio divertido","Hoy el parque tematico esta abierto").
+introduccion(jose,"Hola don Pepito","Hola Pepe").
 
 /*Frases del escenario regaño a clara*/
-frase("Clara espera un poco más",clara):- estado(bronca).
-frase("No molestes clara",clara):- estado(bronca).
-frase("Aguanta un poco más y te compro un helado",clara):- estado(bronca).
+escenario1(clara,"Clara espera un poco mas","Tengo hambre").
+escenario1(clara,"Mmmmmm","No molestes clara").
+escenario1(clara,"Es que estoy aburrida","Aguanta un poco mas y te compro un helado").
 
-autorizados([clara,jose,pepe,self]).
-
-presentes(Agentes):- .member(clara,Agentes) & .member(pepe,Agentes) & .member(jose,Agentes).
-
-
-//apropiado(Agentes):- .member(clara) & .member(pepe) & .member(jose).
 /* Initial beliefs and rules */
 
 
@@ -24,14 +19,41 @@ presentes(Agentes):- .member(clara,Agentes) & .member(pepe,Agentes) & .member(jo
 
 
 
-!start.
+!inicio.
 
 
 
 /* Plans */
 
 
-+!start[source(Fuente)] : .all_names(Agentes) & presentes(Agentes) & autorizados(Lista) & .member(Fuente,Lista) <- .print("hola");
-+autorizados([clara,jose,pepe,self]).
+/*Planes para la introduccion*/
++!inicio[source(self)]: introduccion(Respuesta)<-
+			.print("Blanca: ",Respuesta);
+			.send(clara,achieve,digoQue(Respuesta));
+			.send(jose,achieve,digoQue(Respuesta)).		
 
-+!start[source(Fuente)]: autorizados(Lista) & .member(Fuente,Lista)<-.print("hola").
++!digoQue("Hola don Pepito")[source(jose)]: introduccion(jose,"Hola don Pepito",Respuesta)<-
+			.print("Blanca: ",Respuesta);
+			.send(clara,achieve,digoQue(Respuesta));
+			.send(pepe,achieve,digoQue(Respuesta));
+			.send(jose,achieve,digoQue(Respuesta)).
+	
++!digoQue(Frase)[source(jose)]: introduccion(jose,Frase,Respuesta)<-
+			.print("Blanca: ",Respuesta);
+			.send(clara,achieve,digoQue(Respuesta));
+			.send(jose,achieve,digoQue(Respuesta)).
++!digoQue(Frase)[source(clara)]: introduccion(clara,Frase,Respuesta)<-
+			.print("Blanca: ",Respuesta);
+			.send(clara,achieve,digoQue(Respuesta));
+			.send(jose,achieve,digoQue(Respuesta)).
+
+/*Planes para el escenario1*/
++!burla(Frase)[source(clara)]: escenario1(blanca,Frase,Respuesta)<-
+			.print("Blanca: ",Respuesta);
+			.send(clara,achieve,digoQue(Respuesta));
+			.send(pepe,achieve,digoQue(Respuesta));
+			.send(jose,achieve,digoQue(Respuesta)).
+			
+			
+/*Plan por defecto escuchar y guardar la informacion*/
++!digoQue(Frase)[source(Sender)]<-+escuchado(Sender,Frase).

@@ -31,9 +31,9 @@ MAS p1Recuperacion {
 
 
     agents: 
-		jose;
-		clara;
-		pepe;
+		//jose;
+		//clara;
+		///pepe;
 		blanca;
 }
 
