@@ -1,7 +1,11 @@
-// Agent clara in project P1Recuperacion.mas2j
-
-/* Initial beliefs and rules */
-/*Conjunto de frases para el escenario2*/
+// Agent clara in project P1Recuperacion.mas2j
+
+
+
+/* Initial beliefs and rules */
+
+
+/*Conjunto de frases para el escenario2*/
 
 /*Frases para la introduccion*/
 
@@ -28,10 +32,13 @@ escenario2(pepe,"Pues verás Clara el primer numero que pensaste es ",X," y el se
 elegirRandom(X,A,B):- (math.random *100 =Z  ) & (math.floor(Z) = X) & (X > A) & (X < B).
 elegirRandom(X,A,B):- elegirRandom(X,A,B).
 
-/* Initial goals */
+/* Initial goals */
 
-
-/* Plans */
+
+
+
+/* Plans */
+
 
 /*Planes para la introduccion*/
 +!digoQue(Frase)[source(blanca)]: introduccion(blanca,Frase,Respuesta)<-
@@ -74,7 +81,9 @@ elegirRandom(X,A,B):- elegirRandom(X,A,B).
 		+almacenar(X);
 		+numero(Y);
 		.print("Clara: ",Respuesta);
-		.send(clara,achieve,digoQue(Respuesta)).		
+		.send(pepe,achieve,digoQue(Respuesta));
+		.send(blanca,achieve,digoQue(Respuesta));
+		.send(jose,achieve,digoQue(Respuesta)).		
 		
 +!digoQue(F1,X,F2,Y)[source(pepe)]: escenario2(pepe,F1,X,F2,Y,Respuesta)<-
 			.print("Clara: ",Respuesta);
@@ -82,6 +91,6 @@ elegirRandom(X,A,B):- elegirRandom(X,A,B).
 			.send(blanca,achieve,digoQue(Respuesta));
 			.send(jose,achieve,digoQue(Respuesta)).
 			
-/*Plan por defecto ignorar*/
-+!digoQue.
+/*Plan por defecto escuchar y guardar la informacion*/
++!digoQue(Frase)[source(Sender)]<-+escuchado(Sender,Frase).
 			
