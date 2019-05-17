@@ -49,14 +49,20 @@ averiguarNumero(X,A,B):- (Z=X+101) & (Z/100=Aux) & (math.floor(Aux)=A) & (Z-(A*1
 		
 +!digoQue(Frase)[source(clara)]: escenario2(clara,Frase,Respuesta) <- 
 		.print("Pepito: ",Respuesta);
+		.send(jose,achieve,digoQue(Respuesta));
+		.send(blanca,achieve,digoQue(Respuesta));
 		.send(clara,achieve,digoQue(Respuesta)).
 		
 +!digoQue(F1,X)[source(clara)]: escenario2(clara,F1,X,F2,F3) & averiguarNumero(X,Y,Z)<-
 			.print("Pepito: ",F2,Y,F3,Z);
+			.send(jose,achieve,digoQue(Respuesta));
+			.send(blanca,achieve,digoQue(Respuesta));
 			.send(clara,achieve,digoQue(F2,Y,F3,Z)).
 			
 +!digoQue[source(clara)]: escenario2(clara,Respuesta) <- 
 		.print("Pepito: ",Respuesta);
+		.send(jose,achieve,digoQue(Respuesta));
+		.send(blanca,achieve,digoQue(Respuesta));
 		.send(clara,achieve,digoQue(Respuesta)).
 		
 /*Plan por defecto escuchar y guardar la informacion*/
