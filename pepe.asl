@@ -68,4 +68,6 @@ averiguarNumero(X,A,B):- (Z=X+101) & (Z/100=Aux) & (math.floor(Aux)=A) & (Z-(A*1
 /*Plan por defecto escuchar y guardar la informacion*/
 +!digoQue(Frase)[source(Sender)]<-+escuchado(Sender,Frase).
 
+/*Plan por defecto escuchar y guardar la informacion*/
++!burla(Frase)[source(Sender)]<-+escuchadaBurla(Sender,Frase).
 
